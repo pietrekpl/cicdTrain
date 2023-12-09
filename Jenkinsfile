@@ -31,14 +31,10 @@ pipeline {
             steps {
                 // Prześlij obraz do DockerHub
                 script {
-                 withCredentials([usernamePassword(credentialsId: 'credentialsId', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                                 // Ustaw zmienną środowiskową dla użytkownika DockerHub
-                                 withEnv(["DOCKER_USERNAME=${DOCKER_USERNAME}", "DOCKER_PASSWORD=${DOCKER_PASSWORD}"]) {
-                                     // Logowanie się na DockerHub
-                                     bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
-                                     // Przesyłanie obrazu do DockerHub
-                                     bat 'docker push pludynia/mirkoserwis_send:latest'
-
+                    withCredentials([usernamePassword(credentialsId: 'credentialsId', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        bat "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                        bat 'docker push pludynia/mirkoserwis_send:latest'
+                    }
                 }
             }
         }
