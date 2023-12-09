@@ -38,7 +38,7 @@ pipeline {
                                      bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
                                      // Przesyłanie obrazu do DockerHub
                                      bat 'docker push pludynia/mirkoserwis_send:latest'
-                    }
+
                 }
             }
         }
