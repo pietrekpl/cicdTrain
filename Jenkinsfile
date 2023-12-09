@@ -13,14 +13,7 @@ pipeline {
             steps {
                 // Zbuduj i przetestuj aplikację
                 script {
-                     // Sprawdź, czy Jenkins działa na systemie Windows
-                        def isWindows = isUnix() ? false : true
-
-                        // Komenda budowania i testowania
-                        def buildCommand = isWindows ? 'mvn clean package' : 'nohup mvn clean package &'
-
-                        // Wykonaj komendę
-                        sh buildCommand
+                     bat 'mvn clean package'
                 }
             }
         }
@@ -29,7 +22,7 @@ pipeline {
             steps {
                 // Zbuduj obraz Dockerowy
                 script {
-                    sh 'docker build -t pludynia/mirkoserwis_send:latest .'
+                    bat 'docker build -t pludynia/mirkoserwis_send:latest .'
                 }
             }
         }
@@ -39,8 +32,8 @@ pipeline {
                 // Prześlij obraz do DockerHub
                 script {
                     withCredentials([usernamePassword(Dockerhub: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
-                        sh 'docker push pludynia/mirkoserwis_send:latest'
+                        bat "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                        bat 'docker push pludynia/mirkoserwis_send:latest'
                     }
                 }
             }
