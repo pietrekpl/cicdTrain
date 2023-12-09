@@ -31,7 +31,7 @@ pipeline {
             steps {
                 // Prześlij obraz do DockerHub
                 script {
-                 withCredentials([usernamePassword(credentialsId: 'moje-dockerhub-uwierzytelnienie', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                 withCredentials([usernamePassword(credentialsId: 'credentialsId', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                                  // Ustaw zmienną środowiskową dla użytkownika DockerHub
                                  withEnv(["DOCKER_USERNAME=${DOCKER_USERNAME}", "DOCKER_PASSWORD=${DOCKER_PASSWORD}"]) {
                                      // Logowanie się na DockerHub
