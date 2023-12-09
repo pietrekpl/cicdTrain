@@ -2,21 +2,21 @@ package mirkoserwis_send.mirkoserwis_send.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import mirkoserwis_send.mirkoserwis_send.client.SendClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/send")
+@Slf4j
 public class ClientController {
 
-    private final SendClient sendClient;
-
-    @PostMapping("/send-data")
-    public String sendData(@RequestBody String data) {
-        return sendClient.getData(data);
+    @PostMapping
+    public String send(@RequestParam String message) {
+        log.info("Message = {}", message);
+        return message;
     }
+
 
 
 
