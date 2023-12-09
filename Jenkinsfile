@@ -13,7 +13,14 @@ pipeline {
             steps {
                 // Zbuduj i przetestuj aplikację
                 script {
-                    sh 'mvn clean package'
+                     // Sprawdź, czy Jenkins działa na systemie Windows
+                        def isWindows = isUnix() ? false : true
+
+                        // Komenda budowania i testowania
+                        def buildCommand = isWindows ? 'mvn clean package' : 'nohup mvn clean package &'
+
+                        // Wykonaj komendę
+                        sh buildCommand
                 }
             }
         }
